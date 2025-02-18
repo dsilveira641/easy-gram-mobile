@@ -3,14 +3,12 @@
 This is an [Expo](https://expo.dev) project created with [`create-expo-app`](https://www.npmjs.com/package/create-expo-app).
 
 ## Get started
-
-1. Install dependencies
-
+1. Certifique de estar utilizando a versão 22 do NodeJS
+2. Instale as dependencias
    ```bash
    npm install
    ```
-
-2. Start the app
+3. Start the app
 
    ```bash
     npx expo start
