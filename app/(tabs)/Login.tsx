@@ -5,7 +5,8 @@ import {
   TextInput,
   TouchableOpacity,
   StyleSheet,
-  SafeAreaView
+  SafeAreaView,
+  Image
 } from 'react-native';
 
 const LoginScreen: React.FC = () => {
@@ -17,6 +18,7 @@ const LoginScreen: React.FC = () => {
     <SafeAreaView style={styles.container}>
       {/* Logo / Título */}
       <Text style={styles.logo}>Easy ZAP</Text>
+      
 
       {/* Título da página de Login */}
       <Text style={styles.loginTitle}>Login</Text>
