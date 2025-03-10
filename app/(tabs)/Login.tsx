@@ -8,17 +8,29 @@ import {
   SafeAreaView,
   Image
 } from 'react-native';
+import SideBar from '../../components/sideBar'; // Importe o SideBar
 
 const LoginScreen: React.FC = () => {
   const [email, setEmail] = useState('');
   const [senha, setSenha] = useState('');
   const [mostrarSenha, setMostrarSenha] = useState(false);
+  const [menuAberto, setMenuAberto] = useState(false); // Estado para controlar a visibilidade do menu
 
   return (
     <SafeAreaView style={styles.container}>
+      {/* Botão para abrir o menu lateral */}
+      <TouchableOpacity
+        style={styles.menuButton}
+        onPress={() => setMenuAberto(!menuAberto)}
+      >
+        <Text style={styles.menuButtonText}>☰</Text>
+      </TouchableOpacity>
+
+      {/* Renderize o menu lateral se estiver aberto */}
+      {menuAberto && <SideBar />}
+
       {/* Logo / Título */}
       <Text style={styles.logo}>Easy ZAP</Text>
-      
 
       {/* Título da página de Login */}
       <Text style={styles.loginTitle}>Login</Text>
@@ -79,6 +91,16 @@ const styles = StyleSheet.create({
     backgroundColor: '#FFFFFF',
     paddingHorizontal: 24,
     paddingTop: 48,
+  },
+  menuButton: {
+    position: 'absolute',
+    top: 10,
+    left: 10,
+    zIndex: 1,
+  },
+  menuButtonText: {
+    fontSize: 24,
+    color: '#333',
   },
   logo: {
     fontSize: 24,
