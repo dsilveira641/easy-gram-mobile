@@ -9,6 +9,7 @@ import {
   Image
 } from 'react-native';
 import SideBar from '../../components/sideBar'; // Importe o SideBar
+import styles from '../styles/login-style'; // Importe o arquivo de estilos
 
 const LoginScreen: React.FC = () => {
   const [email, setEmail] = useState('');
@@ -84,7 +85,7 @@ const LoginScreen: React.FC = () => {
 };
 
 export default LoginScreen;
-
+/*
 const styles = StyleSheet.create({
   container: {
     flex: 1,
@@ -173,3 +174,4 @@ const styles = StyleSheet.create({
     fontWeight: '600',
   },
 });
+*/
