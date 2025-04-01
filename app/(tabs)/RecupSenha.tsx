@@ -5,8 +5,7 @@ import {
   TextInput,
   TouchableOpacity,
   StyleSheet,
-  SafeAreaView,
-  Image
+  SafeAreaView
 } from 'react-native';
 
 const RecupSenha: React.FC = () => {
