@@ -2,7 +2,7 @@ import { StyleSheet } from 'react-native';
 
 const styles = StyleSheet.create({
   container: {
-    flex: 1,
+     flex: 1,
     backgroundColor: '#FFFFFF',
     paddingHorizontal: 24,
     paddingTop: 48,
@@ -16,6 +16,18 @@ const styles = StyleSheet.create({
   menuButtonText: {
     fontSize: 24,
     color: '#333',
+    paddingHorizontal: 10,
+  },
+  logoContainer: {
+    flexDirection: 'row',
+    alignItems: 'center',
+    justifyContent: 'center',
+    marginBottom: 16,
+  },
+  logoImage: {
+    width: 24, // Ajuste o tamanho conforme necessário
+    height: 24,
+    marginRight: 8, // Espaço entre a imagem e o texto
   },
   logo: {
     fontSize: 24,
@@ -30,6 +42,7 @@ const styles = StyleSheet.create({
     marginTop: 70,
     color: '#333',
     marginLeft: 30,
+    
   },
   instruction: {
     fontSize: 14,
@@ -41,6 +54,7 @@ const styles = StyleSheet.create({
   },
   inputContainer: {
     marginTop: 24,
+    paddingHorizontal: 20,
   },
   input: {
     backgroundColor: '#F5F5F5',
@@ -52,21 +66,30 @@ const styles = StyleSheet.create({
     color: '#333',
   },
   passwordContainer: {
+    position: 'relative', // Permite posicionamento absoluto do botão
+    // backgroundColor: '#F5F5F5',
+    height: 50,
+    borderRadius: 8,
     flexDirection: 'row',
     alignItems: 'center',
   },
   showPasswordButton: {
-    marginLeft: 5,
-    justifyContent: 'center',
-    alignItems: 'center',
-    padding: 5,
-    marginTop: -20,
+    position: 'absolute', // Posiciona o botão dentro do campo
+    right: 1, // Distância da borda direita
+    top: '50%', // Centraliza verticalmente
+    transform: [{ translateY: -20 }], // Ajusta para centralizar
   },
   showPasswordText: {
-    fontSize: 16,
+    fontSize: 14,
+    color: '#333',
+    marginEnd: 15,
+    marginTop: 1,
   },
   forgotPasswordButton: {
     alignSelf: 'flex-end',
+    paddingHorizontal: 20,
+    
+    
   },
   forgotPasswordText: {
     color: '#0095f6',
@@ -76,16 +99,20 @@ const styles = StyleSheet.create({
   },
   loginButton: {
     marginTop: 32,
+    marginHorizontal: 20,
     backgroundColor: '#0D7875',
     height: 48,
     borderRadius: 8,
     justifyContent: 'center',
     alignItems: 'center',
+    
+    
   },
   loginButtonText: {
     color: '#FFFFFF',
     fontSize: 16,
     fontWeight: '600',
+    
   },
 });
 
