@@ -10,12 +10,14 @@ import {
 } from 'react-native';
 import SideBar from '../../components/sideBar'; // Importe o SideBar
 import styles from '../styles/login-style'; // Importe o arquivo de estilos
+import { useNavigation } from 'expo-router';
 
 const LoginScreen: React.FC = () => {
   const [email, setEmail] = useState('');
   const [senha, setSenha] = useState('');
   const [mostrarSenha, setMostrarSenha] = useState(false);
   const [menuAberto, setMenuAberto] = useState(false); // Estado para controlar a visibilidade do menu
+  const navigation = useNavigation<{ navigate: (screen: string) => void }>();
 
   return (
     <SafeAreaView style={styles.container}>
@@ -72,7 +74,9 @@ const LoginScreen: React.FC = () => {
       </View>
 
       {/* Esqueceu a senha */}
-      <TouchableOpacity style={styles.forgotPasswordButton}>
+      <TouchableOpacity 
+        style={styles.forgotPasswordButton}
+        onPress={() => navigation.navigate("RecupSenha")}>
         <Text style={styles.forgotPasswordText}>Esqueceu sua senha?</Text>
       </TouchableOpacity>
 
