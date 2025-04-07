@@ -1,3 +1,18 @@
 {
-  "grupos": []
+  "contatos": [
+    {
+      "id": "1",
+      "nome": "João Silva",
+      "telefone": "(11) 1234-5678",
+      "email": "joaosilva123@gmail.com",
+      "grupo": "Clientes SaldãoNet"
+    },
+    {
+      "id": "9e25",
+      "nome": "Carlinhos",
+      "telefone": "9",
+      "email": "E-mail",
+      "grupo": "Dos PIkas"
+    }
+  ]
 }
