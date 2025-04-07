@@ -10,12 +10,14 @@ import {
 } from 'react-native';
 import SideBar from '../../components/sideBar'; // Importe o SideBar
 import styles from '../styles/login-style'; // Importe o arquivo de estilos
+import { useNavigation } from 'expo-router';
 
 const LoginScreen: React.FC = () => {
   const [email, setEmail] = useState('');
   const [senha, setSenha] = useState('');
   const [mostrarSenha, setMostrarSenha] = useState(false);
   const [menuAberto, setMenuAberto] = useState(false); // Estado para controlar a visibilidade do menu
+  const navigation = useNavigation<{ navigate: (screen: string) => void }>();
 
   return (
     <SafeAreaView style={styles.container}>
@@ -31,7 +33,13 @@ const LoginScreen: React.FC = () => {
       {menuAberto && <SideBar />}
 
       {/* Logo / Título */}
-      <Text style={styles.logo}>Easy ZAP</Text>
+      <View style={styles.logoContainer}>
+        <Image
+          source={require('../../assets/images/favicon.png')} // Substitua pelo caminho correto do favicon
+          style={styles.logoImage}
+        />
+        <Text style={styles.logo}>Easy ZAP</Text>
+      </View>
 
       {/* Título da página de Login */}
       <Text style={styles.loginTitle}>Login</Text>
@@ -53,7 +61,7 @@ const LoginScreen: React.FC = () => {
 
         <View style={styles.passwordContainer}>
           <TextInput
-            style={[styles.input, { flex: 1 }]}
+            style={[styles.input, { flex: 1 }]} // Flex para ocupar o espaço restante
             placeholder="Senha"
             placeholderTextColor="#999"
             secureTextEntry={!mostrarSenha}
@@ -65,14 +73,16 @@ const LoginScreen: React.FC = () => {
             onPress={() => setMostrarSenha(!mostrarSenha)}
           >
             <Text style={styles.showPasswordText}>
-                {mostrarSenha ? '🔓' : '🔒'}
+              {mostrarSenha ? '🔓' : '🔒'}
             </Text>
           </TouchableOpacity>
         </View>
       </View>
 
       {/* Esqueceu a senha */}
-      <TouchableOpacity style={styles.forgotPasswordButton}>
+      <TouchableOpacity 
+        style={styles.forgotPasswordButton}
+        onPress={() => navigation.navigate("RecupSenha")}>
         <Text style={styles.forgotPasswordText}>Esqueceu sua senha?</Text>
       </TouchableOpacity>
 

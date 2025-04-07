@@ -1,111 +1,157 @@
 import React, { useState } from 'react';
-import { View, Text, TextInput, TouchableOpacity, StyleSheet } from 'react-native';
-import axios from 'axios';
-import { useNavigation } from '@react-navigation/native';
-import Feather from 'react-native-vector-icons/Feather';
+import {
+  View,
+  Text,
+  TextInput,
+  TouchableOpacity,
+  StyleSheet,
+  SafeAreaView,
+  Image
+} from 'react-native';
 
-
-export default function NovoContato() {
-  const navigation = useNavigation();
-  const [nome, setNome] = useState('');
-  const [telefone, setTelefone] = useState('');
-  const [email, setEmail] = useState('');
-  const [grupo, setGrupo] = useState('');
-
-  const salvarContato = async () => {
-    try {
-      await axios.post('http://localhost:3001/contatos', { nome, telefone, email, grupo });
-      alert('Contato salvo com sucesso!');
-      navigation.goBack();
-    } catch (err) {
-      alert('Erro ao salvar');
-    }
-  };
+const NewContact: React.FC = () => {
 
   return (
+    <SafeAreaView style={styles.container}>
+      {/* Logo / Título */}
+      <View>
+      <View style={styles.profileContainer}>
+      <TouchableOpacity>
+          <Text style={styles.menuIcon}>☰</Text>
+      </TouchableOpacity>
+      <Image source={{ uri: 'https://www.kew.org/sites/default/files/styles/person_node/public/2024-09/Default_ProfilePicture.png.webp?itok=G25qnG-6'}} style={styles.profileImage}></Image>
+      <Text style={styles.profileName}>Usuário</Text>
+      </View>
+      <View>
+      <Text style={styles.logo}>Contatos</Text>
+      <TouchableOpacity style={styles.plusButton}>
+        <Text style={styles.plusButtonText}>+</Text>
+      </TouchableOpacity>
+      </View>
+      </View>
 
-<View style={styles.container}>
-  <View style={styles.iconContainer}>
-    <Feather name="users" size={28} color="#fff" style={styles.icon} />
-  </View>
+      <View style={styles.iconContainer}>
+      <Image source={{ uri: 'https://icons.veryicon.com/png/o/commerce-shopping/soft-designer-online-tools-icon/group-38.png'}}></Image>
+      </View>
+      
+      {/* Título da página de Novo Contato */}
+      <Text style={styles.instruction}>
+        Você ainda não possui nenhum contato cadastrado! Que tal começar cadastrando um?
+      </Text>
 
-      <Text style={styles.titulo}>Novo contato</Text>
-
-      <TextInput style={styles.input} placeholder="Nome" value={nome} onChangeText={setNome} />
-      <TextInput style={styles.input} placeholder="Telefone" value={telefone} onChangeText={setTelefone} />
-      <TextInput style={styles.input} placeholder="E-mail" value={email} onChangeText={setEmail} />
-      <TextInput style={styles.input} placeholder="Grupo" value={grupo} onChangeText={setGrupo} />
-
-      <TouchableOpacity style={styles.cancelar} onPress={() => navigation.goBack()}>
-        <Text style={styles.cancelarTexto}>Cancelar</Text>
+      {/* Botão de Novo Contato */}
+      <TouchableOpacity style={styles.contactButton}>
+        <Text style={styles.contactButtonText}>+ Novo contato</Text>
       </TouchableOpacity>
 
-      <TouchableOpacity style={styles.salvar} onPress={salvarContato}>
-        <Text style={styles.salvarTexto}>Salvar</Text>
-      </TouchableOpacity>
-    </View>
+    </SafeAreaView>
   );
-}
+};
+
+export default NewContact;
 
 const styles = StyleSheet.create({
   container: {
-    backgroundColor: '#fff',
-    padding: 25,
-    margin: 20,
-    borderRadius: 12,
-    alignItems: 'center',
-    elevation: 4
+    flex: 1,
+    backgroundColor: '#FFFFFF',
+    paddingHorizontal: 24,
+    paddingTop: 48,
   },
-  iconContainer: {
-    backgroundColor: '#00C897',
-    width: 60,
-    height: 60,
-    borderRadius: 30,
-    alignItems: 'center',
-    justifyContent: 'center',
-    marginBottom: 15
+  menuIcon: {
+    fontSize: 20,
   },
-  icon: {
-    fontSize: 30,
-    color: '#fff'
+  logo: {
+    fontSize: 24,
+    fontWeight: '600',
+    color: '#333',
+    alignSelf: 'center',
+    marginBottom: 16,
+    marginRight: 275,
+    marginTop: 16,
   },
-  titulo: {
-    fontSize: 22,
-    marginBottom: 25,
-    fontWeight: 'bold',
-    color: '#333'
+  instruction: {
+    fontSize: 14,
+    color: '#666',
+    textAlign: 'center',
+    marginTop: 20,
+    marginVertical: 8,
+    paddingHorizontal: 16,
+  },
+  inputContainer: {
+    marginTop: 24,
   },
   input: {
-    width: '100%',
-    borderWidth: 1,
-    borderColor: '#ccc',
-    paddingVertical: 12,
-    paddingHorizontal: 15,
+    backgroundColor: '#F5F5F5',
+    height: 48,
     borderRadius: 8,
-    marginBottom: 15,
-    backgroundColor: '#F8F8F8'
-  },
-  cancelar: {
-    width: '100%',
-    backgroundColor: '#E8E8E8',
-    paddingVertical: 14,
-    borderRadius: 8,
-    alignItems: 'center',
-    marginBottom: 10
-  },
-  cancelarTexto: {
+    paddingHorizontal: 12,
+    fontSize: 14,
+    marginBottom: 16,
     color: '#333',
-    fontSize: 16
   },
-  salvar: {
-    width: '100%',
-    backgroundColor: '#00C897',
-    paddingVertical: 14,
+  plusButton: {
+    alignItems:'center',
+    justifyContent:'center',
+    width: 50,
+    height:50,
+    backgroundColor:'#0D7875',
+    borderRadius:50,
+    marginLeft: 325,
+  },
+  plusButtonText: {
+    color: '#FFFFFF',
+    fontSize: 25,
+    fontWeight: '600',
+  },
+  contactButton: {
+    marginTop: 20,
+    justifyContent: 'center',
+    alignItems: 'center',
+    backgroundColor: '#0D7875',
+    height: 48,
     borderRadius: 8,
-    alignItems: 'center'
   },
-  salvarTexto: {
-    color: '#fff',
-    fontSize: 16
-  }
+  contactButtonText: {
+    color: '#FFFFFF',
+    fontSize: 16,
+    fontWeight: '600',
+  },
+  profileContainer: {
+    flexDirection: 'row',
+    alignItems: 'center',
+  },
+  profileImage: {
+    width: 40,
+    height: 40,
+    borderRadius: 20,
+    marginRight: 8,
+    marginLeft: 250,
+  },
+  profileName: {
+    fontSize: 16,
+    color: '#666',
+  },
+  iconContainer: {
+    marginHorizontal: 'auto',
+    backgroundColor: '#6662',
+    padding: 20,
+    width: 50,
+    height:50,
+    borderRadius: 50,
+    marginBottom: 10,
+    marginTop: 10,
+  },
+  icon: {
+    width: 40,
+    height: 40,
+  },
 });
+
+{/* marginHorizontal: 'auto',
+    width: 50,
+    height:50,
+    borderRadius:50,
+    alignItems:'center',
+    justifyContent:'center',
+    backgroundColor: '#666',
+*/}
