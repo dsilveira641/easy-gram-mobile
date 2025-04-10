@@ -9,11 +9,15 @@ import {
   Image,
 } from 'react-native';
 import { Ionicons } from '@expo/vector-icons';
-import SideBar from '../../components/sideBar'; // Importe o SideBar
+import Footer from '../../components/Footer'; // Importação do Footer
+import { NavigationProp } from '@react-navigation/native';
 
-const ContatosScreen: React.FC = () => {
+interface ContatosScreenProps {
+  navigation: NavigationProp<any>;
+}
+
+const ContatosScreen: React.FC<ContatosScreenProps> = ({ navigation }) => {
   const [contatos, setContatos] = useState<string[]>([]);
-  const [menuAberto, setMenuAberto] = useState(false); // Estado para controlar o menu lateral
 
   const adicionarContato = () => {
     const novoContato = `Contato ${contatos.length + 1}`;
@@ -22,17 +26,6 @@ const ContatosScreen: React.FC = () => {
 
   return (
     <SafeAreaView style={styles.container}>
-      {/* Botão para abrir/fechar o menu lateral */}
-      <TouchableOpacity
-        style={styles.menuButton}
-        onPress={() => setMenuAberto(!menuAberto)}
-      >
-        <Ionicons name="menu" size={24} color="black" />
-      </TouchableOpacity>
-
-      {/* Renderize o menu lateral se estiver aberto */}
-      {menuAberto && <SideBar />}
-
       {/* Cabeçalho */}
       <View style={styles.header}>
         <Text style={styles.headerTitle}>Contatos</Text>
@@ -42,6 +35,7 @@ const ContatosScreen: React.FC = () => {
         />
       </View>
 
+      {/* Lista de contatos ou estado vazio */}
       {contatos.length === 0 ? (
         <View style={styles.emptyState}>
           <Ionicons name="people-outline" size={50} color="#B0BEC5" />
@@ -64,6 +58,9 @@ const ContatosScreen: React.FC = () => {
           )}
         />
       )}
+
+      {/* Rodapé */}
+      <Footer navigation={navigation} />
     </SafeAreaView>
   );
 };
@@ -74,17 +71,10 @@ const styles = StyleSheet.create({
     backgroundColor: '#E3F2FD',
     padding: 16,
   },
-  menuButton: {
-    position: 'absolute',
-    top: 10,
-    left: 10,
-    zIndex: 1,
-  },
   header: {
     alignItems: 'center',
     marginTop: 20,
     justifyContent: 'space-between',
-   
     marginBottom: 20,
   },
   headerTitle: {

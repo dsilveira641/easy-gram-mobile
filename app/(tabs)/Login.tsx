@@ -4,34 +4,22 @@ import {
   Text,
   TextInput,
   TouchableOpacity,
-  StyleSheet,
   SafeAreaView,
   Image
 } from 'react-native';
-import SideBar from '../../components/sideBar'; // Importe o SideBar
+
 import styles from '../styles/login-style'; // Importe o arquivo de estilos
 import { useNavigation } from 'expo-router';
+import Footer from '../../components/Footer.tsx';
 
 const LoginScreen: React.FC = () => {
   const [email, setEmail] = useState('');
   const [senha, setSenha] = useState('');
   const [mostrarSenha, setMostrarSenha] = useState(false);
-  const [menuAberto, setMenuAberto] = useState(false); // Estado para controlar a visibilidade do menu
   const navigation = useNavigation<{ navigate: (screen: string) => void }>();
 
   return (
     <SafeAreaView style={styles.container}>
-      {/* Botão para abrir o menu lateral */}
-      <TouchableOpacity
-        style={styles.menuButton}
-        onPress={() => setMenuAberto(!menuAberto)}
-      >
-        <Text style={styles.menuButtonText}>☰</Text>
-      </TouchableOpacity>
-
-      {/* Renderize o menu lateral se estiver aberto */}
-      {menuAberto && <SideBar />}
-
       {/* Logo / Título */}
       <View style={styles.logoContainer}>
         <Image
@@ -90,98 +78,11 @@ const LoginScreen: React.FC = () => {
       <TouchableOpacity style={styles.loginButton}>
         <Text style={styles.loginButtonText}>Login</Text>
       </TouchableOpacity>
+
+      {/* Footer */}
+      <Footer />
     </SafeAreaView>
   );
 };
 
 export default LoginScreen;
-/*
-const styles = StyleSheet.create({
-  container: {
-    flex: 1,
-    backgroundColor: '#FFFFFF',
-    paddingHorizontal: 24,
-    paddingTop: 48,
-  },
-  menuButton: {
-    position: 'absolute',
-    top: 10,
-    left: 10,
-    zIndex: 1,
-  },
-  menuButtonText: {
-    fontSize: 24,
-    color: '#333',
-  },
-  logo: {
-    fontSize: 24,
-    fontWeight: '600',
-    color: '#333',
-    alignSelf: 'center',
-    marginBottom: 16,
-  },
-  loginTitle: {
-    fontSize: 20,
-    fontWeight: '500',
-    marginTop: 70,
-    color: '#333',
-    marginLeft: 30,
-  },
-  instruction: {
-    fontSize: 14,
-    color: '#666',
-    textAlign: 'center',
-    marginTop: 10,
-    marginVertical: 8,
-    paddingHorizontal: 16,
-  },
-  inputContainer: {
-    marginTop: 24,
-  },
-  input: {
-    backgroundColor: '#F5F5F5',
-    height: 48,
-    borderRadius: 8,
-    paddingHorizontal: 12,
-    fontSize: 14,
-    marginBottom: 16,
-    color: '#333',
-  },
-  passwordContainer: {
-    flexDirection: 'row',
-    alignItems: 'center',
-  },
-  showPasswordButton: {
-    marginLeft: 5,
-    justifyContent: 'center',
-    alignItems: 'center',
-    padding: 5,
-    marginTop: -20,
-  },
-  showPasswordText: {
-    fontSize: 16,
-  },
-  forgotPasswordButton: {
-    alignSelf: 'flex-end',
-  },
-  forgotPasswordText: {
-    color: '#0095f6',
-    fontSize: 14,
-    textDecorationLine: 'underline',
-    marginRight: 10,
-  },
-  loginButton: {
-    marginTop: 32,
-    backgroundColor: '#0D7875',
-    height: 48,
-    borderRadius: 8,
-    justifyContent: 'center',
-    alignItems: 'center',
-  },
-  loginButtonText: {
-    color: '#FFFFFF',
-    fontSize: 16,
-    fontWeight: '600',
-  },
-});
-*/

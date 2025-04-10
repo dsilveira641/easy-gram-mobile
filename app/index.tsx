@@ -5,6 +5,7 @@ import EditarContato from './(tabs)/EditarContato';
 import LoginScreen from './(tabs)/Login';
 import NovoContato from './(tabs)/NovoContato';
 import NewContactscreen from './(tabs)/NewContactscreen';
+import contatos from './(tabs)/Contatos';
 
 
 const Stack = createStackNavigator();
@@ -17,6 +18,7 @@ const AppNavigator = () => {
       <Stack.Screen name="NovoContato" component={NovoContato} />
       <Stack.Screen name="NC" component={NewContactscreen} />
       <Stack.Screen name="EditarContato" component={EditarContato} />
+      <Stack.Screen name="Contatos" component={contatos} />
     </Stack.Navigator>
   );
 };
