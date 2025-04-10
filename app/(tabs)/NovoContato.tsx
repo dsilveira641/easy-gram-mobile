@@ -1,17 +1,18 @@
-import React, { useState } from 'react';
+import React from 'react';
 import {
   View,
   Text,
-  TextInput,
   TouchableOpacity,
   StyleSheet,
   SafeAreaView,
   Image
 } from 'react-native';
+import ModalContato from './ModalNovoContato';
 
 const NewContact: React.FC = () => {
 
   return (
+    
     <SafeAreaView style={styles.container}>
       {/* Logo / Título */}
       <View>
