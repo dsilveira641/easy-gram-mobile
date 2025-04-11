@@ -11,6 +11,11 @@ import {
 import SideBar from '../../components/sideBar'; // Importe o SideBar
 import styles from '../styles/login-style'; // Importe o arquivo de estilos
 import { useNavigation } from 'expo-router';
+import api from '../../services/api'; // importa o serviço que criamos
+import { Alert } from 'react-native'; // para exibir alertas
+import { useRouter } from 'expo-router';
+
+const router = useRouter();
 
 const LoginScreen: React.FC = () => {
   const [email, setEmail] = useState('');
@@ -18,6 +23,26 @@ const LoginScreen: React.FC = () => {
   const [mostrarSenha, setMostrarSenha] = useState(false);
   const [menuAberto, setMenuAberto] = useState(false); // Estado para controlar a visibilidade do menu
   const navigation = useNavigation<{ navigate: (screen: string) => void }>();
+
+  const handleLogin = async () => {
+    try {
+      const response = await api.post('/auth/login', {
+        email: email,
+        senha: senha,
+      });
+  
+      if (response.data && response.data.token) {
+        Alert.alert('Login realizado com sucesso!');
+        router.push('../../(tabs)/Contatos'); // Redirecionando para a rota correta
+      } else {
+        Alert.alert('Erro', 'Não foi possível autenticar. Tente novamente.');
+      }
+    } catch (error) {
+      console.error('Erro na requisição de login:', error);
+      Alert.alert('Erro', 'E-mail ou senha inválidos');
+    }
+  };
+  
 
   return (
     <SafeAreaView style={styles.container}>
@@ -87,7 +112,7 @@ const LoginScreen: React.FC = () => {
       </TouchableOpacity>
 
       {/* Botão de Login */}
-      <TouchableOpacity style={styles.loginButton}>
+      <TouchableOpacity style={styles.loginButton} onPress={handleLogin}>
         <Text style={styles.loginButtonText}>Login</Text>
       </TouchableOpacity>
     </SafeAreaView>
