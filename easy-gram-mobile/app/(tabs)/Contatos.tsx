@@ -1,4 +1,4 @@
-import React, { useState } from 'react';
+import React, { useEffect, useState } from 'react';
 import {
   SafeAreaView,
   View,
@@ -13,17 +13,28 @@ import { Ionicons } from '@expo/vector-icons';
 import SideBar from '../../components/sideBar';
 import { useRouter } from 'expo-router';
 import CriarContato from '@/components/CriarContato';
+import { Contato } from '@/interfaces/contato';
+import axios from 'axios';
+import { enviroment } from '@/env/enviroment';
 
 const ContatosScreen: React.FC = () => {
-  const [contatos, setContatos] = useState<string[]>([]);
+  const [contatos, setContatos] = useState<Contato[]>([]);
   const [menuAberto, setMenuAberto] = useState(false);
   const [modalVisible, setModalVisible] = useState(false);
   const router = useRouter();
 
-  const adicionarContato = () => {
-    const novoContato = `Contato ${contatos.length + 1}`;
-    setContatos([...contatos, novoContato]);
-  };
+  const carregarContatos = async () => {
+    try {
+      const response = await axios.get<Contato[]>(enviroment.API_URL + '/contatos');
+      setContatos(response.data);
+    } catch (err) {
+      console.error('Erro ao carregar contatos:', err);
+    }
+  }
+
+  useEffect(() => {
+    carregarContatos();
+  }, [])
 
   const fecharSidebar = () => setMenuAberto(false);
   type Props = {
@@ -62,7 +73,7 @@ const ContatosScreen: React.FC = () => {
           keyExtractor={(item, index) => index.toString()}
           renderItem={({ item }) => (
             <View style={styles.contactContainer}>
-              <Text style={styles.contactText}>{item}</Text>
+              <Text style={styles.contactText}>{item.nome}</Text>
             </View>
           )}
         />
@@ -72,7 +83,9 @@ const ContatosScreen: React.FC = () => {
         animationType="slide"
         onRequestClose={() => setModalVisible(false)}
       >
-        <CriarContato onClose={() => setModalVisible(false)} />
+        <CriarContato 
+          onClose={() => setModalVisible(false)} 
+          onSuccess={carregarContatos}/>
       </Modal>
     </SafeAreaView>
   );

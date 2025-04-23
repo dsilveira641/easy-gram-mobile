@@ -4,9 +4,9 @@ import axios from 'axios';
 import Feather from 'react-native-vector-icons/Feather';
 import { enviroment } from '../env/enviroment';
 import { Grupos } from '@/interfaces/grupos';
+import { ModalProps } from '@/types/modal-props';
 
-
-export default function CriarContato({ onClose }: any) {  
+export default function CriarContato({ onClose, onSuccess }: ModalProps) {  
   const [nome, setNome] = useState('');
   const [telefone, setTelefone] = useState('');
   const [email, setEmail] = useState('');
@@ -15,7 +15,8 @@ export default function CriarContato({ onClose }: any) {
   const salvarContato = async () => {
     try {
       await axios.post(enviroment.API_URL + '/contatos', { nome, telefone, email, grupo });
-      alert('Contato salvo com sucesso!');      
+      alert('Contato salvo com sucesso!');  
+      onSuccess();
     } catch (err) {
       alert('Erro ao salvar');
     }
