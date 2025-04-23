@@ -7,14 +7,17 @@ import {
   TouchableOpacity,
   StyleSheet,
   Image,
+  Modal
 } from 'react-native';
 import { Ionicons } from '@expo/vector-icons';
 import SideBar from '../../components/sideBar';
 import { useRouter } from 'expo-router';
+import CriarContato from '@/components/CriarContato';
 
 const ContatosScreen: React.FC = () => {
   const [contatos, setContatos] = useState<string[]>([]);
   const [menuAberto, setMenuAberto] = useState(false);
+  const [modalVisible, setModalVisible] = useState(false);
   const router = useRouter();
 
   const adicionarContato = () => {
@@ -32,7 +35,7 @@ const ContatosScreen: React.FC = () => {
         <Ionicons name="menu" size={28} color="#000" />
       </TouchableOpacity>
 
-      {menuAberto && <SideBar onClose={fecharSidebar} />}
+      {/* {menuAberto && <SideBar onClose={fecharSidebar} />} */}
 
       <View style={styles.header}>
         <Text style={styles.headerTitle}>Contatos</Text>
@@ -48,13 +51,13 @@ const ContatosScreen: React.FC = () => {
           <Text style={styles.emptyText}>
             Você ainda não possui nenhum contato cadastrado! Que tal começar cadastrando um?
           </Text>
-          <TouchableOpacity style={styles.addButton} onPress={adicionarContato}>
+          <TouchableOpacity style={styles.addButton} onPress={(() => setModalVisible(true))}>
             <Ionicons name="add" size={20} color="#fff" />
             <Text style={styles.addButtonText}>Novo contato</Text>
           </TouchableOpacity>
         </View>
       ) : (
-        <FlatList
+        <FlatList 
           data={contatos}
           keyExtractor={(item, index) => index.toString()}
           renderItem={({ item }) => (
@@ -64,6 +67,13 @@ const ContatosScreen: React.FC = () => {
           )}
         />
       )}
+      <Modal
+        visible={modalVisible}
+        animationType="slide"
+        onRequestClose={() => setModalVisible(false)}
+      >
+        <CriarContato onClose={() => setModalVisible(false)} />
+      </Modal>
     </SafeAreaView>
   );
 };
