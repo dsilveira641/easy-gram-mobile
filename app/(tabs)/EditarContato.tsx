@@ -3,6 +3,7 @@ import { View, Text, TextInput, TouchableOpacity, StyleSheet } from 'react-nativ
 import axios from 'axios';
 import { useNavigation } from '@react-navigation/native';
 import Feather from 'react-native-vector-icons/Feather';
+import { enviroment } from '../../env/enviroment';
 
 interface Contato {
   id: number;
@@ -12,7 +13,7 @@ interface Contato {
   grupo: string;
 }
 
-export default function EditarContato() {
+export default function EditarContato({ onClose }) {
   const navigation = useNavigation();
   const [contato, setContato] = useState<Contato>({
     id: 1,
@@ -23,7 +24,7 @@ export default function EditarContato() {
   });
 
   useEffect(() => {
-    axios.get('http://localhost:3001/contatos/9e25')
+    axios.get(enviroment.API_URL + `/contatos/${contato.id}`)
       .then((res) => setContato(res.data))
       .catch(() => alert('Erro ao buscar o contato'));
   }, []);
@@ -71,7 +72,7 @@ export default function EditarContato() {
       />
 
       <View style={styles.botoes}>
-        <TouchableOpacity style={styles.btnCancelar} onPress={() => navigation.goBack()}>
+        <TouchableOpacity style={styles.btnCancelar} onPress={onClose}>
           <Text style={styles.textCancelar}>Fechar</Text>
         </TouchableOpacity>
         <TouchableOpacity style={styles.btnSalvar} onPress={atualizarContato}>
