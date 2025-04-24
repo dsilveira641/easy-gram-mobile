@@ -20,14 +20,14 @@ const LoginScreen: React.FC = () => {
 
   return (
     <SafeAreaView style={styles.container}>
-      <TouchableOpacity
+      {/* <TouchableOpacity
         style={styles.menuButton}
         onPress={() => setMenuAberto(!menuAberto)}
       >
         <Text style={styles.menuButtonText}>☰</Text>
       </TouchableOpacity>
 
-      {menuAberto && <SideBar />}
+      {menuAberto && <SideBar />} */}
 
       <View style={styles.logoContainer}>
         <Image
