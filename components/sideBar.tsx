@@ -1,6 +1,6 @@
 import React, { useState } from 'react';
 import { View, StyleSheet, TouchableWithoutFeedback } from 'react-native';
-import { Link } from 'expo-router'; // Certifique-se de importar o Link corretamente
+import { Link } from 'expo-router';
 
 const SideBar = () => {
   const [isVisible, setIsVisible] = useState(true);
@@ -16,6 +16,7 @@ const SideBar = () => {
           <View style={styles.sidebar}>
             <Link href="/(tabs)/Login" style={styles.menuItem}>Login</Link>
             <Link href="/(tabs)/Contatos" style={styles.menuItem}>Contatos</Link>
+            <Link href="/(tabs)/grupos" style={styles.menuItem}>Grupos</Link> 
           </View>
         </View>
       </TouchableWithoutFeedback>
@@ -30,7 +31,7 @@ const styles = StyleSheet.create({
     left: 0,
     width: '100%',
     height: '100%',
-    backgroundColor: 'rgba(0, 0, 0, 0.5)', // Fundo semitransparente
+    backgroundColor: 'rgba(0, 0, 0, 0.5)',
     zIndex: 9,
   },
   sidebar: {

@@ -6,6 +6,7 @@ import LoginScreen from './(tabs)/Login';
 import NovoContato from './(tabs)/NovoContato';
 import NewContactscreen from './(tabs)/NewContactscreen';
 import Contatos from './(tabs)/Contatos'; 
+import Grupos from './(tabs)/grupos'; 
 
 
 const Stack = createStackNavigator();
@@ -19,6 +20,7 @@ const AppNavigator = () => {
       <Stack.Screen name="NovoContato" component={NovoContato} />
       <Stack.Screen name="NC" component={NewContactscreen} />
       <Stack.Screen name="EditarContato" component={EditarContato} />
+      <Stack.Screen name="Grupos" component={Grupos} />
     </Stack.Navigator>
   );
 };
