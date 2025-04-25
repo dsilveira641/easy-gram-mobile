@@ -1,4 +1,4 @@
-import React, { useState } from 'react';
+import React, { useState, useEffect } from 'react';
 import {
   SafeAreaView,
   View,
@@ -7,10 +7,14 @@ import {
   TouchableOpacity,
   StyleSheet,
   Image,
+  Modal,
 } from 'react-native';
 import { Ionicons } from '@expo/vector-icons';
 import Footer from '../../components/Footer'; // Importação do Footer
 import { NavigationProp } from '@react-navigation/native';
+import EditarContato from '../(tabs)/EditarContato'; // Importação do EditarContato
+import axios from 'axios';
+import { enviroment } from '../../env/enviroment';
 
 interface ContatosScreenProps {
   navigation: NavigationProp<any>;
@@ -18,11 +22,16 @@ interface ContatosScreenProps {
 
 const ContatosScreen: React.FC<ContatosScreenProps> = ({ navigation }) => {
   const [contatos, setContatos] = useState<string[]>([]);
+  const [modalVisible, setModalVisible] = useState(false);
 
-  const adicionarContato = () => {
-    const novoContato = `Contato ${contatos.length + 1}`;
-    setContatos([...contatos, novoContato]);
-  };
+  useEffect(() => {
+    axios.get(enviroment.API_URL + `/contatos`)
+      .then((res) => {
+        console.log("[ContatosScreen]", res);
+        setContatos(res.data);
+    })
+      .catch(() => alert('Erro ao buscar o contato'));
+  }, []);
 
   return (
     <SafeAreaView style={styles.container}>
@@ -42,7 +51,7 @@ const ContatosScreen: React.FC<ContatosScreenProps> = ({ navigation }) => {
           <Text style={styles.emptyText}>
             Você ainda não possui nenhum contato cadastrado! Que tal começar cadastrando um?
           </Text>
-          <TouchableOpacity style={styles.addButton} onPress={adicionarContato}>
+          <TouchableOpacity style={styles.addButton} onPress={() => setModalVisible(true)}>
             <Ionicons name="add" size={20} color="#fff" />
             <Text style={styles.addButtonText}>Novo contato</Text>
           </TouchableOpacity>
@@ -61,6 +70,13 @@ const ContatosScreen: React.FC<ContatosScreenProps> = ({ navigation }) => {
 
       {/* Rodapé */}
       <Footer navigation={navigation} />
+      <Modal
+        visible={modalVisible}
+        animationType="slide"
+        onRequestClose={() => setModalVisible(false)}
+      >
+        <EditarContato onClose={() => setModalVisible(false)} />
+      </Modal>
     </SafeAreaView>
   );
 };
@@ -132,3 +148,4 @@ const styles = StyleSheet.create({
 });
 
 export default ContatosScreen;
+
