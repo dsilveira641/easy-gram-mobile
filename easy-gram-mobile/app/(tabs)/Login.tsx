@@ -8,7 +8,6 @@ import {
   SafeAreaView,
   Image
 } from 'react-native';
-import SideBar from '../../components/sideBar';
 import { useRouter } from 'expo-router';
 
 const LoginScreen: React.FC = () => {
@@ -20,15 +19,6 @@ const LoginScreen: React.FC = () => {
 
   return (
     <SafeAreaView style={styles.container}>
-      <TouchableOpacity
-        style={styles.menuButton}
-        onPress={() => setMenuAberto(!menuAberto)}
-      >
-        <Text style={styles.menuButtonText}>☰</Text>
-      </TouchableOpacity>
-
-      {menuAberto && <SideBar />}
-
       <View style={styles.logoContainer}>
         <Image
           source={require('../../assets/images/favicon.png')}

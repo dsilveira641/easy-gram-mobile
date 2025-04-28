@@ -10,9 +10,8 @@ import {
   Modal
 } from 'react-native';
 import { Ionicons } from '@expo/vector-icons';
-import SideBar from '../../components/sideBar';
 import { useRouter } from 'expo-router';
-import CriarContato from '@/components/CriarContato';
+import CriarContato from '@/app/(tabs)/CriarContato';
 import { Contato } from '@/interfaces/contato';
 import axios from 'axios';
 import { enviroment } from '@/env/enviroment';
